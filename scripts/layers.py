@@ -116,9 +116,9 @@ class Generator(nn.Module):
   def generate_random_sample_from_gaussian_distribution(self, batch_size:int)-> torch.Tensor:
     for param in self.parameters():
       if param.dtype == torch.float32:
-        return torch.normal(mean= 1, std=1, size=(batch_size, self.latent_data_channels, self.latent_data_lenght))
+        return torch.normal(mean= 1, std=0.5, size=(batch_size, self.latent_data_channels, self.latent_data_lenght))
       elif param.dtype == torch.float64:
-        return torch.normal(mean= 1, std=1, size=(batch_size, self.latent_data_channels, self.latent_data_lenght)).double()
+        return torch.normal(mean= 1, std=0.5, size=(batch_size, self.latent_data_channels, self.latent_data_lenght)).double()
       else:
         raise ValueError("Incorrect dicriminator noise format")
 
