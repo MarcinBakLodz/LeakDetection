@@ -396,29 +396,20 @@ class LocalizationTrainer_v1(nn.Module):
             self.encoder.eval()  # Przełączenie modelu w tryb ewaluacji
                 
 
+class SynteticDataGenerator(nn.Module):
+    def __init__(self, generator, discriminator, learning_rate = 3e-3):
+        super().__init__()
+        self.generator = generator
+        self.discriminator = discriminator
+        self.learning_rate = learning_rate
+        
+        criterion = nn.BCELoss()
+        optimizer_G = optim.Adam(self.generator.parameters(), lr=self.learning_rate)
+        optimizer_D = optim.Adam(self.discriminator.parameters(), lr=self.learning_rate)
+    
+    def train(num_of_epochs =10):
+        for epoch in range(num_of_epochs):
+            pass
 
-
-# Zamrażamy parametry drugiej warstwy
-for param in model.fc2.parameters():
-    param.requires_grad = False
-
-# Ustawiamy optymalizator, który będzie aktualizował tylko "niezamrożone" warstwy
-optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=0.01)
-
-# Przykładowe dane wejściowe
-inputs = torch.randn(10)  # Losowy tensor wejściowy
-targets = torch.randn(5)  # Losowy tensor docelowy
-
-# Funkcja straty
-criterion = nn.MSELoss()
-
-# Forward pass
-outputs = model(inputs)
-loss = criterion(outputs, targets)
-
-# Backward pass i optymalizacja
-optimizer.zero_grad()
-loss.backward()
-optimizer.step()
-
-print("Trening zakończony.")
+if __name__ == "__main__":
+    pass
